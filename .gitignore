@@ -2,3 +2,6 @@
 .DS_Store
 .vscode/
 bin/
+.project
+.settings/
+.classpath
