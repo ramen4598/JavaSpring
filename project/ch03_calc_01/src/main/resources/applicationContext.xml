@@ -10,7 +10,6 @@
 	<bean id="cSub" class="ch03_calc_01.CalSub" />
 	<bean id="cMul" class="ch03_calc_01.CalMul" />
 	<bean id="cDiv" class="ch03_calc_01.CalDiv" />
-
 	<bean id="myCalculator" class="ch03_calc_01.MyCalculator" />
 	
 	<bean id="calAssembler" class="ch03_calc_01.CalAssembler" >
