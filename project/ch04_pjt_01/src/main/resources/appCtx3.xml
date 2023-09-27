@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- EMSInformationService -->
+	<bean id="eMSInformationService" class="ch04_pjt_01.ems.member.service.EMSInformationService" >
+		<!-- info field initialize -->
+		<property name="info" value="Education Management System program was developed in 2022." />
+		<!-- copyRight field initialize -->
+		<property name="copyRight" value="COPYRIGHT(C) 2022 EMS CO., LTD. ALL RIGHT RESERVED. CONTACT MASTER FOR MORE INFORMATION." />
+		<!-- ver field initialize -->
+		<property name="ver" value="The version is 1.0" />
+		<!-- sYear field initialize -->
+		<property name="sYear" value="2022" />
+		<!-- sMonth field initialize -->
+		<property name="sMonth" value="3" />
+		<!-- sDay field initialize -->
+		<property name="sDay" value="1" />
+		<!-- eYear field initialize -->
+		<property name="eYear" value="2022" />
+		<!-- eMonth field initialize -->
+		<property name="eMonth" value="4" />
+		<!-- eDay field initialize -->
+		<property name="eDay" value="30" />
+		<property name="developers">
+			<list>
+				<value>Cheney.</value>
+				<value>Eloy.</value>
+				<value>Jasper.</value>
+				<value>Dillon.</value>
+				<value>Kian.</value>
+			</list>
+		</property>
+		<property name="administrators">
+			<map>
+				<entry>
+					<key>
+						<value>Cheney</value>
+					</key>
+					<value>cheney@springPjt.org</value>
+				</entry>
+				<entry>
+					<key>
+						<value>Jasper</value>
+					</key>
+					<value>jasper@springPjt.org</value>
+				</entry>
+			</map>
+		</property>
+		<property name="dbInfos">
+			<map>
+				<entry>
+					<key>
+						<value>dev</value>
+					</key>
+					<ref bean="dev_DBConnectionInfoDev" />
+				</entry>
+				<entry>
+					<key>
+						<value>real</value>
+					</key>
+					<ref bean="real_DBConnectionInfo" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

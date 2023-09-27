@@ -1,13 +1,14 @@
 package ch04_pjt_01.ems.utils;
 
 public class InitSampleData {
-	private String[] sNums = {"hbs001", "hbs002", "hbs003", "hbs004", "hbs005", "hbs999"};
-	private String[] sIds = {"rabbit", "happo", "raccoon", "elephant", "lion", "human"};
-	private String[] sPws = {"96539", "64875", "15284", "48765", "28661", "11111"};
-	private String[] sNames = {"agatha", "barbara", "chris", "doris", "elva", "tiredI"};
-	private int[] sAges = {19, 22, 20, 27, 19, 23};
-	private char[] sGenders = {'M', 'W', 'W', 'M', 'M', 'M'};
-	private String[] sMajors = {"English Literature", "Korean Language and Literature", "French Language and Literature", "Philosophy", "History", "Computer Science"};
+	private String[] sNums;
+	private String[] sIds;
+	private String[] sPws;
+	private String[] sNames;
+	private int[] sAges;
+	private char[] sGenders;
+	private String[] sMajors;
+
 	public String[] getsNums() {
 		return sNums;
 	}
