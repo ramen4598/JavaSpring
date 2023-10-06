@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_dnvioGPNEe6_-qGbXyqqvQ" name="ch05_pjt_01">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_dp6s4GPNEe6_-qGbXyqqvQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_v8Y-sGPNEe6_-qGbXyqqvQ" name="generated">
+      <packagedElement xmi:type="uml:Package" xmi:id="_v-YiwGPNEe6_-qGbXyqqvQ" name="ch05_pjt_01">
+        <packagedElement xmi:type="uml:Package" xmi:id="_v-ZJ0GPNEe6_-qGbXyqqvQ" name="contact">
+          <packagedElement xmi:type="uml:Class" xmi:id="_v-c0MGPNEe6_-qGbXyqqvQ" name="MainClass" visibility="public">
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBObYGPNEe6_-qGbXyqqvQ" name="main" specification="_wBEqYGPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    //IoC 컨테이너 생성&#xD;
+    GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(&quot;classpath:appCtx.xml&quot;);&#xD;
+    //샘플 데이터&#xD;
+    InitSampleData initSampleData = ctx.getBean(&quot;initSampleData&quot;, InitSampleData.class);&#xD;
+    String[] names = initSampleData.getNames();&#xD;
+    String[] phoneNumbers = initSampleData.getPhoneNumbers();&#xD;
+    //데이터 등록&#xD;
+    ContactRegisterService registerService = ctx.getBean(&quot;registerService&quot;, ContactRegisterService.class);&#xD;
+    for (int i = 0; i &lt; names.length; i++) {&#xD;
+        ContactSet contactSet = new ContactSet(names[i], phoneNumbers[i]);&#xD;
+        registerService.register(contactSet);&#xD;
+    }&#xD;
+    //데이터 조회&#xD;
+    ContactSearchService searchService = ctx.getBean(&quot;searchService&quot;, ContactSearchService.class);&#xD;
+    ContactSet contactSet = searchService.searchContact(&quot;류현진&quot;);&#xD;
+    System.out.println(&quot;name: &quot; + contactSet.getName());&#xD;
+    System.out.println(&quot;phone number: &quot; + contactSet.getPhoneNumber());&#xD;
+    System.out.println(&quot;---------------------------------------------&quot;);&#xD;
+    contactSet = searchService.searchContact(&quot;손흥민&quot;);&#xD;
+    System.out.println(&quot;name: &quot; + contactSet.getName());&#xD;
+    System.out.println(&quot;phone number: &quot; + contactSet.getPhoneNumber());&#xD;
+    System.out.println(&quot;---------------------------------------------&quot;);&#xD;
+    contactSet = searchService.searchContact(&quot;김연경&quot;);&#xD;
+    System.out.println(&quot;name: &quot; + contactSet.getName());&#xD;
+    System.out.println(&quot;phone number: &quot; + contactSet.getPhoneNumber());&#xD;
+    System.out.println(&quot;---------------------------------------------&quot;);&#xD;
+    ctx.close();&#xD;
+</body>
+            </ownedBehavior>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBEqYGPNEe6_-qGbXyqqvQ" name="main" visibility="public" isStatic="true" method="_wBObYGPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBF4gGPNEe6_-qGbXyqqvQ" name="args" type="_v-iTwGPNEe6_-qGbXyqqvQ">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wBHGoGPNEe6_-qGbXyqqvQ"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wBHtsGPNEe6_-qGbXyqqvQ" value="*"/>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_wBResGPNEe6_-qGbXyqqvQ" name="ContactSet" visibility="public">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_wBSs0GPNEe6_-qGbXyqqvQ" name="name" visibility="private" type="_v-iTwGPNEe6_-qGbXyqqvQ" isUnique="false"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_wBUiAGPNEe6_-qGbXyqqvQ" name="phoneNumber" visibility="private" type="_v-iTwGPNEe6_-qGbXyqqvQ" isUnique="false"/>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBdE4GPNEe6_-qGbXyqqvQ" name="ContactSet" specification="_wBVwIGPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    this.name = name;&#xD;
+    this.phoneNumber = phoneNumber;&#xD;
+</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBhWUGPNEe6_-qGbXyqqvQ" name="getName" specification="_wBeTAGPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    return name;&#xD;
+</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBlAsGPNEe6_-qGbXyqqvQ" name="setName" specification="_wBjLgGPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    this.name = name;&#xD;
+</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBnc8GPNEe6_-qGbXyqqvQ" name="getPhoneNumber" specification="_wBmO0GPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    return phoneNumber;&#xD;
+</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wBqgQGPNEe6_-qGbXyqqvQ" name="setPhoneNumber" specification="_wBpSIGPNEe6_-qGbXyqqvQ">
+              <language>JAVA</language>
+              <body>&#xD;
+    this.phoneNumber = phoneNumber;&#xD;
+</body>
+            </ownedBehavior>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBVwIGPNEe6_-qGbXyqqvQ" name="ContactSet" visibility="public" method="_wBdE4GPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBbPsGPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBcd0GPNEe6_-qGbXyqqvQ" name="phoneNumber" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+            </ownedOperation>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBeTAGPNEe6_-qGbXyqqvQ" name="getName" visibility="public" method="_wBhWUGPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBgvQGPNEe6_-qGbXyqqvQ" type="_v-iTwGPNEe6_-qGbXyqqvQ" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBjLgGPNEe6_-qGbXyqqvQ" name="setName" visibility="public" method="_wBlAsGPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBkZoGPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+            </ownedOperation>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBmO0GPNEe6_-qGbXyqqvQ" name="getPhoneNumber" visibility="public" method="_wBnc8GPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBm14GPNEe6_-qGbXyqqvQ" type="_v-iTwGPNEe6_-qGbXyqqvQ" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_wBpSIGPNEe6_-qGbXyqqvQ" name="setPhoneNumber" visibility="public" method="_wBqgQGPNEe6_-qGbXyqqvQ">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_wBp5MGPNEe6_-qGbXyqqvQ" name="phoneNumber" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_wBs8gGPNEe6_-qGbXyqqvQ" name="dao">
+            <packagedElement xmi:type="uml:Class" xmi:id="_wBtjkGPNEe6_-qGbXyqqvQ" name="ContactDao" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_wBzDIGPNEe6_-qGbXyqqvQ" name="contactDB" visibility="private" type="_wBvYwGPNEe6_-qGbXyqqvQ" isUnique="false">
+                <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_wBzqMGPNEe6_-qGbXyqqvQ" name="defaultValue">
+                  <language>JAVA</language>
+                  <body>new HashMap&lt;String, ContactSet>()</body>
+                </defaultValue>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wB2GcGPNEe6_-qGbXyqqvQ" name="insert" specification="_wB0RQGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    contactDB.put(contactSet.getName(), contactSet);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wB6X4GPNEe6_-qGbXyqqvQ" name="select" specification="_wB37oGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    return contactDB.get(name);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wB9bMGPNEe6_-qGbXyqqvQ" name="getContactDB" specification="_wB7mAGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    return contactDB;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wB0RQGPNEe6_-qGbXyqqvQ" name="insert" visibility="public" method="_wB2GcGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wB1fYGPNEe6_-qGbXyqqvQ" name="contactSet" type="_wBResGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wB37oGPNEe6_-qGbXyqqvQ" name="select" visibility="public" method="_wB6X4GPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wB4isGPNEe6_-qGbXyqqvQ" type="_wBResGPNEe6_-qGbXyqqvQ" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wB5JwGPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wB7mAGPNEe6_-qGbXyqqvQ" name="getContactDB" visibility="public" method="_wB9bMGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wB8NEGPNEe6_-qGbXyqqvQ" type="_wBvYwGPNEe6_-qGbXyqqvQ" direction="return"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_7oo3EGRUEe6Dsvx-VJNOig" client="_wBtjkGPNEe6_-qGbXyqqvQ" supplier="_wBResGPNEe6_-qGbXyqqvQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_wB-pUGPNEe6_-qGbXyqqvQ" name="service">
+            <packagedElement xmi:type="uml:Class" xmi:id="_wB_3cGPNEe6_-qGbXyqqvQ" name="ContactSearchService" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_wCBFkGPNEe6_-qGbXyqqvQ" name="contactDao" visibility="private" type="_wBtjkGPNEe6_-qGbXyqqvQ" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCGlIGPNEe6_-qGbXyqqvQ" name="ContactSearchService" specification="_wCBsoGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.contactDao = contactDao;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCK2kGPNEe6_-qGbXyqqvQ" name="searchContact" specification="_wCHzQGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (verify(name)) {&#xD;
+        return contactDao.select(name);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;Contact information is available.&quot;);&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCYR8GPNEe6_-qGbXyqqvQ" name="verify" specification="_wCMEsGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    ContactSet contactSet = contactDao.select(name);&#xD;
+    return contactSet != null ? true : false;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCZgEGPNEe6_-qGbXyqqvQ" name="setContactDao" specification="_wCY5AGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.contactDao = contactDao;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCBsoGPNEe6_-qGbXyqqvQ" name="ContactSearchService" visibility="public" method="_wCGlIGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCF-EGPNEe6_-qGbXyqqvQ" name="contactDao" type="_wBtjkGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCHzQGPNEe6_-qGbXyqqvQ" name="searchContact" visibility="public" method="_wCK2kGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCJBYGPNEe6_-qGbXyqqvQ" type="_wBResGPNEe6_-qGbXyqqvQ" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCJocGPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCMEsGPNEe6_-qGbXyqqvQ" name="verify" visibility="public" method="_wCYR8GPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCWcwWPNEe6_-qGbXyqqvQ" type="_wCWcwGPNEe6_-qGbXyqqvQ" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCXq4GPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCY5AGPNEe6_-qGbXyqqvQ" name="setContactDao" visibility="public" method="_wCZgEGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCY5AWPNEe6_-qGbXyqqvQ" name="contactDao" type="_wBtjkGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_wCbVQGPNEe6_-qGbXyqqvQ" name="ContactRegisterService" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_wCb8UGPNEe6_-qGbXyqqvQ" name="contactDao" visibility="private" type="_wBtjkGPNEe6_-qGbXyqqvQ" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCg00GPNEe6_-qGbXyqqvQ" name="ContactRegisterService" specification="_wCcjYGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.contactDao = contactDao;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCiqAGPNEe6_-qGbXyqqvQ" name="register" specification="_wChb4GPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    String name = contactSet.getName();&#xD;
+    if (verify(name)) {&#xD;
+        contactDao.insert(contactSet);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;The name has already regiseterd.&quot;);&#xD;
+    }&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCmUYGPNEe6_-qGbXyqqvQ" name="verify" specification="_wCj4IGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    ContactSet contactSet = contactDao.select(name);&#xD;
+    return contactSet == null ? true : false;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCoJkGPNEe6_-qGbXyqqvQ" name="SetWordDao" specification="_wCm7cGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.contactDao = contactDao;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCcjYGPNEe6_-qGbXyqqvQ" name="ContactRegisterService" visibility="public" method="_wCg00GPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCgNwGPNEe6_-qGbXyqqvQ" name="contactDao" type="_wBtjkGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wChb4GPNEe6_-qGbXyqqvQ" name="register" visibility="public" method="_wCiqAGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCiC8GPNEe6_-qGbXyqqvQ" name="contactSet" type="_wBResGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCj4IGPNEe6_-qGbXyqqvQ" name="verify" visibility="public" method="_wCmUYGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCkfMGPNEe6_-qGbXyqqvQ" type="_wCWcwGPNEe6_-qGbXyqqvQ" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCltUGPNEe6_-qGbXyqqvQ" name="name" type="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCm7cGPNEe6_-qGbXyqqvQ" name="SetWordDao" visibility="public" method="_wCoJkGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCnigGPNEe6_-qGbXyqqvQ" name="contactDao" type="_wBtjkGPNEe6_-qGbXyqqvQ"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_RNNBMGRUEe6Dsvx-VJNOig" client="_wB_3cGPNEe6_-qGbXyqqvQ" supplier="_wBtjkGPNEe6_-qGbXyqqvQ"/>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_c1MYAGRUEe6Dsvx-VJNOig" client="_wCbVQGPNEe6_-qGbXyqqvQ" supplier="_dnvioGPNEe6_-qGbXyqqvQ"/>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_B3bUkGRVEe6Dsvx-VJNOig" client="_wCbVQGPNEe6_-qGbXyqqvQ" supplier="_dnvioGPNEe6_-qGbXyqqvQ"/>
+            <packagedElement xmi:type="uml:Dependency" xmi:id="_GIsVcGRVEe6Dsvx-VJNOig" client="_wB_3cGPNEe6_-qGbXyqqvQ" supplier="_wBResGPNEe6_-qGbXyqqvQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_wCowoGPNEe6_-qGbXyqqvQ" name="utils">
+            <packagedElement xmi:type="uml:Class" xmi:id="_wCpXsGPNEe6_-qGbXyqqvQ" name="InitSampleData" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_wCpXsWPNEe6_-qGbXyqqvQ" name="names" visibility="private" type="_v-iTwGPNEe6_-qGbXyqqvQ" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCp-wGPNEe6_-qGbXyqqvQ"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wCp-wWPNEe6_-qGbXyqqvQ" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_wCql0GPNEe6_-qGbXyqqvQ" name="phoneNumbers" visibility="private" type="_v-iTwGPNEe6_-qGbXyqqvQ" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCrM4GPNEe6_-qGbXyqqvQ"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wCrz8GPNEe6_-qGbXyqqvQ" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCtpIWPNEe6_-qGbXyqqvQ" name="getNames" specification="_wCrz8WPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    return names;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wCx6kGPNEe6_-qGbXyqqvQ" name="setNames" specification="_wCveUGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.names = names;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wC094GPNEe6_-qGbXyqqvQ" name="getPhoneNumbers" specification="_wCyhoGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    return phoneNumbers;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_wC4oQGPNEe6_-qGbXyqqvQ" name="setPhoneNumbers" specification="_wC2MAGPNEe6_-qGbXyqqvQ">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.phoneNumbers = phoneNumbers;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCrz8WPNEe6_-qGbXyqqvQ" name="getNames" visibility="public" method="_wCtpIWPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCtCEGPNEe6_-qGbXyqqvQ" type="_v-iTwGPNEe6_-qGbXyqqvQ" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCtCEWPNEe6_-qGbXyqqvQ"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wCtpIGPNEe6_-qGbXyqqvQ" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCveUGPNEe6_-qGbXyqqvQ" name="setNames" visibility="public" method="_wCx6kGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCwFYGPNEe6_-qGbXyqqvQ" name="names" type="_v-iTwGPNEe6_-qGbXyqqvQ">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCwscGPNEe6_-qGbXyqqvQ"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wCxTgGPNEe6_-qGbXyqqvQ" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wCyhoGPNEe6_-qGbXyqqvQ" name="getPhoneNumbers" visibility="public" method="_wC094GPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wCzIsGPNEe6_-qGbXyqqvQ" type="_v-iTwGPNEe6_-qGbXyqqvQ" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCzvwGPNEe6_-qGbXyqqvQ"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wC0W0GPNEe6_-qGbXyqqvQ" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_wC2MAGPNEe6_-qGbXyqqvQ" name="setPhoneNumbers" visibility="public" method="_wC4oQGPNEe6_-qGbXyqqvQ">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_wC2zEGPNEe6_-qGbXyqqvQ" name="phoneNumbers" type="_v-iTwGPNEe6_-qGbXyqqvQ">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wC3aIGPNEe6_-qGbXyqqvQ"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wC4BMGPNEe6_-qGbXyqqvQ" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+            </packagedElement>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_cfn7MGRVEe6Dsvx-VJNOig" client="_v-c0MGPNEe6_-qGbXyqqvQ" supplier="_wCpXsGPNEe6_-qGbXyqqvQ"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_it6pcGRVEe6Dsvx-VJNOig" client="_dnvioGPNEe6_-qGbXyqqvQ" supplier="_wBResGPNEe6_-qGbXyqqvQ"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_mN4JMGRVEe6Dsvx-VJNOig" client="_v-c0MGPNEe6_-qGbXyqqvQ" supplier="_wB_3cGPNEe6_-qGbXyqqvQ"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_p8izUGRVEe6Dsvx-VJNOig" client="_dnvioGPNEe6_-qGbXyqqvQ" supplier="_wCbVQGPNEe6_-qGbXyqqvQ"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_v-gekGPNEe6_-qGbXyqqvQ" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_v-hFoGPNEe6_-qGbXyqqvQ" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_v-hssGPNEe6_-qGbXyqqvQ" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_v-iTwGPNEe6_-qGbXyqqvQ" name="String"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_wBuxsGPNEe6_-qGbXyqqvQ" name="util">
+          <packagedElement xmi:type="uml:Class" xmi:id="_wBvYwGPNEe6_-qGbXyqqvQ" name="Map"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_wCVOoGPNEe6_-qGbXyqqvQ" name="importedTypes">
+      <packagedElement xmi:type="uml:Package" xmi:id="_wCV1sGPNEe6_-qGbXyqqvQ" name="primitivetype">
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_wCWcwGPNEe6_-qGbXyqqvQ" name="Boolean"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_v9d8wGPNEe6_-qGbXyqqvQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_v9gZAGPNEe6_-qGbXyqqvQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_v95akGPNEe6_-qGbXyqqvQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_v96osGPNEe6_-qGbXyqqvQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_v-B9cGPNEe6_-qGbXyqqvQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_v-CkgGPNEe6_-qGbXyqqvQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_wBCOIGPNEe6_-qGbXyqqvQ" name="java.lang.String" base_Classifier="_v-iTwGPNEe6_-qGbXyqqvQ"/>
+  <standard:Create xmi:id="_wBYzcGPNEe6_-qGbXyqqvQ" base_BehavioralFeature="_wBVwIGPNEe6_-qGbXyqqvQ"/>
+  <PapyrusJava:External xmi:id="_wBxN8GPNEe6_-qGbXyqqvQ" name="java.util.Map" base_Classifier="_wBvYwGPNEe6_-qGbXyqqvQ"/>
+  <standard:Create xmi:id="_wCEI4GPNEe6_-qGbXyqqvQ" base_BehavioralFeature="_wCBsoGPNEe6_-qGbXyqqvQ"/>
+  <standard:Create xmi:id="_wCe_oGPNEe6_-qGbXyqqvQ" base_BehavioralFeature="_wCcjYGPNEe6_-qGbXyqqvQ"/>
+</xmi:XMI>
