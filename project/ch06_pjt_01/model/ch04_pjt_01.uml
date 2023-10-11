@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_m9yGsGRWEe6Dsvx-VJNOig" name="ch04_pjt_01">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_m_Cq8GRWEe6Dsvx-VJNOig">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_uZlw8GRWEe6Dsvx-VJNOig" name="model">
+      <packagedElement xmi:type="uml:Package" xmi:id="_ubM6gGRWEe6Dsvx-VJNOig" name="ch04_pjt_01">
+        <packagedElement xmi:type="uml:Package" xmi:id="_ubNhkGRWEe6Dsvx-VJNOig" name="ems">
+          <packagedElement xmi:type="uml:Class" xmi:id="_ubPWwGRWEe6Dsvx-VJNOig" name="MainClass" visibility="public">
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uc6xwGRWEe6Dsvx-VJNOig" name="main" specification="_uc15QGRWEe6Dsvx-VJNOig">
+              <language>JAVA</language>
+              <body>&#xD;
+    // TODO Auto-generated method stub&#xD;
+    //IoC Container&#xD;
+    GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(&quot;classpath:appCtxImport.xml&quot;);&#xD;
+    //Sample Data&#xD;
+    InitSampleData initSampleData = ctx.getBean(&quot;initSampleData&quot;, InitSampleData.class);&#xD;
+    String[] sNums = initSampleData.getsNums();&#xD;
+    String[] sIds = initSampleData.getsIds();&#xD;
+    String[] sPws = initSampleData.getsPws();&#xD;
+    String[] sNames = initSampleData.getsNames();&#xD;
+    int[] sAges = initSampleData.getsAges();&#xD;
+    char[] sGenders = initSampleData.getsGenders();&#xD;
+    String[] sMajors = initSampleData.getsMajors();&#xD;
+    // 데이터베이스에 샘플 데이터 등록&#xD;
+    StudentRegisterService registerService = ctx.getBean(&quot;studentRegisterService&quot;, StudentRegisterService.class);&#xD;
+    for (int i = 0; i &lt; sNums.length; i++) {&#xD;
+        registerService.register(new Student(sNums[i], sIds[i], sPws[i], sNames[i], sAges[i], sGenders[i], sMajors[i]));&#xD;
+    }&#xD;
+    //학생 리스트&#xD;
+    PrintStudentInformationService printStudentInformationService = ctx.getBean(&quot;printStudentInformationService&quot;, PrintStudentInformationService.class);&#xD;
+    printStudentInformationService.printStudentsInfo();&#xD;
+    //학생 등록&#xD;
+    registerService = ctx.getBean(&quot;studentRegisterService&quot;, StudentRegisterService.class);&#xD;
+    registerService.register(new Student(&quot;hbs007&quot;, &quot;deer&quot;, &quot;p007&quot;, &quot;melissa&quot;, 26, 'W', &quot;Music&quot;));&#xD;
+    printStudentInformationService.printStudentsInfo();&#xD;
+    //학생 출력&#xD;
+    StudentSelectService selectService = ctx.getBean(&quot;studentSelectService&quot;, StudentSelectService.class);&#xD;
+    Student selectedstudent = selectService.select(&quot;hbs007&quot;);&#xD;
+    System.out.println(&quot;STUDENT START ---------------&quot;);&#xD;
+    System.out.print(&quot;sNum:&quot; + selectedstudent.getsNum() + &quot;\t&quot;);&#xD;
+    System.out.print(&quot;|sId:&quot; + selectedstudent.getsId() + &quot;\t&quot;);&#xD;
+    System.out.print(&quot;|sPw:&quot; + selectedstudent.getsPw() + &quot;\t&quot;);&#xD;
+    System.out.print(&quot;|sName:&quot; + selectedstudent.getsName() + &quot;\t&quot;);&#xD;
+    System.out.print(&quot;|sAge:&quot; + selectedstudent.getsAge() + &quot;\t&quot;);&#xD;
+    System.out.print(&quot;|sGender:&quot; + selectedstudent.getsGender() + &quot;\t&quot;);&#xD;
+    System.out.println(&quot;|sMajor:&quot; + selectedstudent.getsMajor() + &quot;\t&quot;);&#xD;
+    System.out.println(&quot;END -------------------------&quot;);&#xD;
+    //학생 수정&#xD;
+    StudentModifyService modifyService = ctx.getBean(&quot;studentModifyService&quot;, StudentModifyService.class);&#xD;
+    modifyService.modify(new Student(&quot;hbs007&quot;, &quot;pig&quot;, &quot;p0077&quot;, &quot;melissa&quot;, 27, 'W', &quot;Computer&quot;));&#xD;
+    printStudentInformationService.printStudentsInfo();&#xD;
+    //학생 삭제&#xD;
+    StudentDeleteService deleteService = ctx.getBean(&quot;studentDeleteService&quot;, StudentDeleteService.class);&#xD;
+    deleteService.delete(&quot;hbs005&quot;);&#xD;
+    printStudentInformationService.printStudentsInfo();&#xD;
+    //시스템 정보&#xD;
+    EMSInformationService emsInformationService = ctx.getBean(&quot;eMSInformationService&quot;, EMSInformationService.class);&#xD;
+    emsInformationService.printEMSInformation();&#xD;
+    ctx.close();&#xD;
+</body>
+            </ownedBehavior>
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_uc15QGRWEe6Dsvx-VJNOig" name="main" visibility="public" isStatic="true" method="_uc6xwGRWEe6Dsvx-VJNOig">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_uc3HYGRWEe6Dsvx-VJNOig" name="args" type="_ubToMGRWEe6Dsvx-VJNOig">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uc3ucGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uc4VgGRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_uc8m8GRWEe6Dsvx-VJNOig" name="member">
+            <packagedElement xmi:type="uml:Class" xmi:id="_uc91EGRWEe6Dsvx-VJNOig" name="DBConnectionInfo" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uc-cIGRWEe6Dsvx-VJNOig" name="url" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uc_DMGRWEe6Dsvx-VJNOig" name="userId" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_udARUGRWEe6Dsvx-VJNOig" name="userPw" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udD7sGRWEe6Dsvx-VJNOig" name="getUrl" specification="_udA4YGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return url;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udFw4GRWEe6Dsvx-VJNOig" name="setUrl" specification="_udEiwGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.url = url;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udINIGRWEe6Dsvx-VJNOig" name="getUserId" specification="_udG_AGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return userId;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udKCUWRWEe6Dsvx-VJNOig" name="setUserId" specification="_udI0MGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.userId = userId;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udMekGRWEe6Dsvx-VJNOig" name="getUserPw" specification="_udLQcGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return userPw;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_udO60GRWEe6Dsvx-VJNOig" name="setUserPw" specification="_udNssGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.userPw = userPw;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udA4YGRWEe6Dsvx-VJNOig" name="getUrl" visibility="public" method="_udD7sGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udDUoGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udEiwGRWEe6Dsvx-VJNOig" name="setUrl" visibility="public" method="_udFw4GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udFJ0GRWEe6Dsvx-VJNOig" name="url" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udG_AGRWEe6Dsvx-VJNOig" name="getUserId" visibility="public" method="_udINIGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udHmEGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udI0MGRWEe6Dsvx-VJNOig" name="setUserId" visibility="public" method="_udKCUWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udKCUGRWEe6Dsvx-VJNOig" name="userId" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udLQcGRWEe6Dsvx-VJNOig" name="getUserPw" visibility="public" method="_udMekGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udL3gGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_udNssGRWEe6Dsvx-VJNOig" name="setUserPw" visibility="public" method="_udO60GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_udOTwGRWEe6Dsvx-VJNOig" name="userPw" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_udQwAGRWEe6Dsvx-VJNOig" name="Student" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_udR-IGRWEe6Dsvx-VJNOig" name="sNum" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_udTMQGRWEe6Dsvx-VJNOig" name="sId" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_udTzUGRWEe6Dsvx-VJNOig" name="sPw" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_udVBcGRWEe6Dsvx-VJNOig" name="sName" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ueNLMWRWEe6Dsvx-VJNOig" name="sAge" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ueOZUWRWEe6Dsvx-VJNOig" name="sGender" visibility="private" type="_ueOZUGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uePncGRWEe6Dsvx-VJNOig" name="sMajor" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ueYxYWRWEe6Dsvx-VJNOig" name="Student" specification="_ueQ1kGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sNum = sNum;&#xD;
+    this.sId = sId;&#xD;
+    this.sPw = sPw;&#xD;
+    this.sName = sName;&#xD;
+    this.sAge = sAge;&#xD;
+    this.sGender = sGender;&#xD;
+    this.sMajor = sMajor;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uebNoGRWEe6Dsvx-VJNOig" name="getsNum" specification="_ueZ_gGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sNum;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uedp4GRWEe6Dsvx-VJNOig" name="setsNum" specification="_ueb0sGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sNum = sNum;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ueffEGRWEe6Dsvx-VJNOig" name="getsId" specification="_ueeQ8GRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sId;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uehUQGRWEe6Dsvx-VJNOig" name="setsId" specification="_uegGIGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sId = sId;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uejJcWRWEe6Dsvx-VJNOig" name="getsPw" specification="_ueiiYGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sPw;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uellsGRWEe6Dsvx-VJNOig" name="setsPw" specification="_uekXkGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sPw = sPw;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uena4GRWEe6Dsvx-VJNOig" name="getsName" specification="_uemMwGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sName;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uepQEWRWEe6Dsvx-VJNOig" name="setsName" specification="_ueoB8GRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sName = sName;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uerFQGRWEe6Dsvx-VJNOig" name="getsAge" specification="_uep3IGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sAge;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ues6cGRWEe6Dsvx-VJNOig" name="setsAge" specification="_uersUGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sAge = sAge;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ueuvoGRWEe6Dsvx-VJNOig" name="getsGender" specification="_uethgGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sGender;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uewk0GRWEe6Dsvx-VJNOig" name="setsGender" specification="_uevWsGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sGender = sGender;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ueyaAGRWEe6Dsvx-VJNOig" name="getsMajor" specification="_uexL4GRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sMajor;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ue0PMGRWEe6Dsvx-VJNOig" name="setsMajor" specification="_uezBEGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sMajor = sMajor;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueQ1kGRWEe6Dsvx-VJNOig" name="Student" visibility="public" method="_ueYxYWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueVHAGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueVuEGRWEe6Dsvx-VJNOig" name="sId" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueWVIGRWEe6Dsvx-VJNOig" name="sPw" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueW8MGRWEe6Dsvx-VJNOig" name="sName" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueXjQGRWEe6Dsvx-VJNOig" name="sAge" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueYKUGRWEe6Dsvx-VJNOig" name="sGender" type="_ueOZUGRWEe6Dsvx-VJNOig"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueYxYGRWEe6Dsvx-VJNOig" name="sMajor" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueZ_gGRWEe6Dsvx-VJNOig" name="getsNum" visibility="public" method="_uebNoGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueamkGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueb0sGRWEe6Dsvx-VJNOig" name="setsNum" visibility="public" method="_uedp4GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uedC0GRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueeQ8GRWEe6Dsvx-VJNOig" name="getsId" visibility="public" method="_ueffEGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uee4AGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uegGIGRWEe6Dsvx-VJNOig" name="setsId" visibility="public" method="_uehUQGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uegtMGRWEe6Dsvx-VJNOig" name="sId" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueiiYGRWEe6Dsvx-VJNOig" name="getsPw" visibility="public" method="_uejJcWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uejJcGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uekXkGRWEe6Dsvx-VJNOig" name="setsPw" visibility="public" method="_uellsGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uek-oGRWEe6Dsvx-VJNOig" name="sPw" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uemMwGRWEe6Dsvx-VJNOig" name="getsName" visibility="public" method="_uena4GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uemz0GRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_ueoB8GRWEe6Dsvx-VJNOig" name="setsName" visibility="public" method="_uepQEWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uepQEGRWEe6Dsvx-VJNOig" name="sName" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uep3IGRWEe6Dsvx-VJNOig" name="getsAge" visibility="public" method="_uerFQGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueqeMGRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uersUGRWEe6Dsvx-VJNOig" name="setsAge" visibility="public" method="_ues6cGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uesTYGRWEe6Dsvx-VJNOig" name="sAge" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uethgGRWEe6Dsvx-VJNOig" name="getsGender" visibility="public" method="_ueuvoGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_ueuIkGRWEe6Dsvx-VJNOig" type="_ueOZUGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uevWsGRWEe6Dsvx-VJNOig" name="setsGender" visibility="public" method="_uewk0GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uev9wGRWEe6Dsvx-VJNOig" name="sGender" type="_ueOZUGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uexL4GRWEe6Dsvx-VJNOig" name="getsMajor" visibility="public" method="_ueyaAGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uexy8GRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uezBEGRWEe6Dsvx-VJNOig" name="setsMajor" visibility="public" method="_ue0PMGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uezoIGRWEe6Dsvx-VJNOig" name="sMajor" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Package" xmi:id="_ue1dUGRWEe6Dsvx-VJNOig" name="dao">
+              <packagedElement xmi:type="uml:Class" xmi:id="_ue2rcGRWEe6Dsvx-VJNOig" name="StudentDao" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ue684GRWEe6Dsvx-VJNOig" name="studentDB" visibility="private" type="_ue35kGRWEe6Dsvx-VJNOig" isUnique="false">
+                  <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_ue7j8GRWEe6Dsvx-VJNOig" name="defaultValue">
+                    <language>JAVA</language>
+                    <body>new HashMap&lt;String, Student>()</body>
+                  </defaultValue>
+                </ownedAttribute>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ue9ZIGRWEe6Dsvx-VJNOig" name="insert" specification="_ue8LAGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    studentDB.put(student.getsNum(), student);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ue_1YGRWEe6Dsvx-VJNOig" name="select" specification="_ue-AMGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return studentDB.get(sNum);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufBqkGRWEe6Dsvx-VJNOig" name="update" specification="_ufAccGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    studentDB.put(student.getsNum(), student);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufDfwGRWEe6Dsvx-VJNOig" name="delete" specification="_ufCRoGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    studentDB.remove(sNum);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufFU8GRWEe6Dsvx-VJNOig" name="getStudentDB" specification="_ufEG0GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return studentDB;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ue8LAGRWEe6Dsvx-VJNOig" name="insert" visibility="public" method="_ue9ZIGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ue8yEGRWEe6Dsvx-VJNOig" name="student" type="_udQwAGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ue-AMGRWEe6Dsvx-VJNOig" name="select" visibility="public" method="_ue_1YGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ue-nQGRWEe6Dsvx-VJNOig" type="_udQwAGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ue_OUGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufAccGRWEe6Dsvx-VJNOig" name="update" visibility="public" method="_ufBqkGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufBDgGRWEe6Dsvx-VJNOig" name="student" type="_udQwAGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufCRoGRWEe6Dsvx-VJNOig" name="delete" visibility="public" method="_ufDfwGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufC4sGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufEG0GRWEe6Dsvx-VJNOig" name="getStudentDB" visibility="public" method="_ufFU8GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufEt4GRWEe6Dsvx-VJNOig" type="_ue35kGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_P_88MGRaEe6Dsvx-VJNOig" client="_ue2rcGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Package" xmi:id="_ufGjEGRWEe6Dsvx-VJNOig" name="service">
+              <packagedElement xmi:type="uml:Class" xmi:id="_ufHxMGRWEe6Dsvx-VJNOig" name="StudentDeleteService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ufHxMWRWEe6Dsvx-VJNOig" name="studentDao" visibility="private" type="_ue2rcGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufMpsGRWEe6Dsvx-VJNOig" name="StudentDeleteService" specification="_ufI_UGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.studentDao = studentDao;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufOe4GRWEe6Dsvx-VJNOig" name="delete" specification="_ufNQwGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    if (verify(sNum)) {&#xD;
+        studentDao.delete(sNum);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;Student information is available.&quot;);&#xD;
+    }&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufSJQGRWEe6Dsvx-VJNOig" name="verify" specification="_ufPtAGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Student student = studentDao.select(sNum);&#xD;
+    return student != null ? true : false;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufI_UGRWEe6Dsvx-VJNOig" name="StudentDeleteService" visibility="public" method="_ufMpsGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufMCoGRWEe6Dsvx-VJNOig" name="studentDao" type="_ue2rcGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufNQwGRWEe6Dsvx-VJNOig" name="delete" visibility="public" method="_ufOe4GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufN30GRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufPtAGRWEe6Dsvx-VJNOig" name="verify" visibility="public" method="_ufSJQGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufQ7IGRWEe6Dsvx-VJNOig" type="_ufQUEGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufRiMGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_ufT-cGRWEe6Dsvx-VJNOig" name="StudentRegisterService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ufUlgGRWEe6Dsvx-VJNOig" name="studentDao" visibility="private" type="_ue2rcGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufY28GRWEe6Dsvx-VJNOig" name="StudentRegisterService" specification="_ufVMkGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.studentDao = studentDao;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufasIGRWEe6Dsvx-VJNOig" name="register" specification="_ufZeAGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    if (verify(student.getsNum())) {&#xD;
+        studentDao.insert(student);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;The student has already registered.&quot;);&#xD;
+    }&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufdIYGRWEe6Dsvx-VJNOig" name="verify" specification="_ufbTMGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Student student = studentDao.select(sNum);&#xD;
+    return student == null ? true : false;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufVMkGRWEe6Dsvx-VJNOig" name="StudentRegisterService" visibility="public" method="_ufY28GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufYP4GRWEe6Dsvx-VJNOig" name="studentDao" type="_ue2rcGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufZeAGRWEe6Dsvx-VJNOig" name="register" visibility="public" method="_ufasIGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufaFEGRWEe6Dsvx-VJNOig" name="student" type="_udQwAGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufbTMGRWEe6Dsvx-VJNOig" name="verify" visibility="public" method="_ufdIYGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufb6QGRWEe6Dsvx-VJNOig" type="_ufQUEGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufchUGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_ufe9kGRWEe6Dsvx-VJNOig" name="StudentSelectService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uffkoGRWEe6Dsvx-VJNOig" name="studentDao" visibility="private" type="_ue2rcGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufj2EGRWEe6Dsvx-VJNOig" name="StudentSelectService" specification="_ufgLsGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.studentDao = studentDao;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufmSUWRWEe6Dsvx-VJNOig" name="select" specification="_uflEMGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    if (verify(sNum)) {&#xD;
+        return studentDao.select(sNum);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;Student information is available.&quot;);&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufpVoGRWEe6Dsvx-VJNOig" name="verify" specification="_ufngcGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Student student = studentDao.select(sNum);&#xD;
+    return student != null ? true : false;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufgLsGRWEe6Dsvx-VJNOig" name="StudentSelectService" visibility="public" method="_ufj2EGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufjPAGRWEe6Dsvx-VJNOig" name="studentDao" type="_ue2rcGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_uflEMGRWEe6Dsvx-VJNOig" name="select" visibility="public" method="_ufmSUWRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_uflEMWRWEe6Dsvx-VJNOig" type="_udQwAGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufmSUGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufngcGRWEe6Dsvx-VJNOig" name="verify" visibility="public" method="_ufpVoGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufoHgGRWEe6Dsvx-VJNOig" type="_ufQUEGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufoukGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_ufqjwGRWEe6Dsvx-VJNOig" name="StudentAllSelectService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ufrK0GRWEe6Dsvx-VJNOig" name="studentDao" visibility="private" type="_ue2rcGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufwqYGRWEe6Dsvx-VJNOig" name="StudentAllSelectService" specification="_ufsY8GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.studentDao = studentDao;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ufx4gGRWEe6Dsvx-VJNOig" name="allSelect" specification="_ufxRcGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return studentDao.getStudentDB();&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufsY8GRWEe6Dsvx-VJNOig" name="StudentAllSelectService" visibility="public" method="_ufwqYGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufwDUGRWEe6Dsvx-VJNOig" name="studentDao" type="_ue2rcGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ufxRcGRWEe6Dsvx-VJNOig" name="allSelect" visibility="public" method="_ufx4gGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ufxRcWRWEe6Dsvx-VJNOig" type="_ue35kGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_uf0UwGRWEe6Dsvx-VJNOig" name="EMSInformationService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf1i4GRWEe6Dsvx-VJNOig" name="copyRight" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf2xAGRWEe6Dsvx-VJNOig" name="ver" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf3YEGRWEe6Dsvx-VJNOig" name="sYear" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf3_IGRWEe6Dsvx-VJNOig" name="sMonth" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf4mMGRWEe6Dsvx-VJNOig" name="sDay" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf5NQGRWEe6Dsvx-VJNOig" name="eYear" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf50UGRWEe6Dsvx-VJNOig" name="eMonth" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf6bYGRWEe6Dsvx-VJNOig" name="eDay" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf7CcGRWEe6Dsvx-VJNOig" name="developers" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uf7pgGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uf8QkGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf8QkWRWEe6Dsvx-VJNOig" name="administrators" visibility="private" type="_ue35kGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf83oGRWEe6Dsvx-VJNOig" name="dbInfos" visibility="private" type="_ue35kGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_uf-s0GRWEe6Dsvx-VJNOig" name="info" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uf9esWRWEe6Dsvx-VJNOig" name="printEMSInformation" specification="_uf9esGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    System.out.println(&quot;EMS INFORMATION START --------------&quot;);&#xD;
+    String devPeriod = sYear + &quot;/&quot; + sMonth + &quot;/&quot; + sDay + &quot; ~ &quot; + eYear + &quot;/&quot; + eMonth + &quot;/&quot; + eDay;&#xD;
+    System.out.println(info + &quot;(&quot; + devPeriod + &quot;)&quot;);&#xD;
+    System.out.println(copyRight);&#xD;
+    System.out.println(ver);&#xD;
+    System.out.println(&quot;Develops: &quot; + developers);&#xD;
+    System.out.println(&quot;Administrator: &quot; + administrators);&#xD;
+    printDBInfo();&#xD;
+    System.out.println(&quot;END --------------------&quot;);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uf-FwWRWEe6Dsvx-VJNOig" name="printDBInfo" specification="_uf-FwGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Set&lt;String> keys = dbInfos.keySet();&#xD;
+    Iterator&lt;String> iterator = keys.iterator();&#xD;
+    while (iterator.hasNext()) {&#xD;
+        String key = iterator.next();&#xD;
+        DBConnectionInfo info = dbInfos.get(key);&#xD;
+        System.out.print(&quot;[&quot; + key + &quot; DB&quot;);&#xD;
+        System.out.print(&quot;url: &quot; + info.getUrl() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;userId: &quot; + info.getUserId() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;userPw: &quot; + info.getUserPw() + &quot;\n&quot;);&#xD;
+    }&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugAiAGRWEe6Dsvx-VJNOig" name="getInfo" specification="_uf_T4GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return info;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugCXMGRWEe6Dsvx-VJNOig" name="setInfo" specification="_ugBJEGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.info = info;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugEMYGRWEe6Dsvx-VJNOig" name="getCopyRight" specification="_ugC-QGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return copyRight;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugFagGRWEe6Dsvx-VJNOig" name="setCopyRight" specification="_ugEzcGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.copyRight = copyRight;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugHPsGRWEe6Dsvx-VJNOig" name="getVer" specification="_ugGBkGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return ver;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugJE4GRWEe6Dsvx-VJNOig" name="setVer" specification="_ugH2wGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.ver = ver;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugKTAGRWEe6Dsvx-VJNOig" name="getsYear" specification="_ugJr8GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return sYear;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugMIMGRWEe6Dsvx-VJNOig" name="setsYear" specification="_ugK6EGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.sYear = sYear;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugNWUGRWEe6Dsvx-VJNOig" name="getsMonth" specification="_ugMvQGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return sMonth;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugPLgGRWEe6Dsvx-VJNOig" name="setsMonth" specification="_ugN9YGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.sMonth = sMonth;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugQZoWRWEe6Dsvx-VJNOig" name="getsDay" specification="_ugPykGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return sDay;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugSO0GRWEe6Dsvx-VJNOig" name="setsDay" specification="_ugRAsGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.sDay = sDay;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugTc8GRWEe6Dsvx-VJNOig" name="geteYear" specification="_ugS14GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return eYear;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugVSIGRWEe6Dsvx-VJNOig" name="seteYear" specification="_ugUEAGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.eYear = eYear;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugWgQGRWEe6Dsvx-VJNOig" name="geteMonth" specification="_ugV5MGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return eMonth;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugYVcGRWEe6Dsvx-VJNOig" name="seteMonth" specification="_ugXHUGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.eMonth = eMonth;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugZjkWRWEe6Dsvx-VJNOig" name="geteDay" specification="_ugY8gGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return eDay;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugbYwGRWEe6Dsvx-VJNOig" name="seteDay" specification="_ugaKoGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.eDay = eDay;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugd1AGRWEe6Dsvx-VJNOig" name="getDevelopers" specification="_ugb_0GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return developers;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uggRQGRWEe6Dsvx-VJNOig" name="setDevelopers" specification="_ugecEGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.developers = developers;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ughfYWRWEe6Dsvx-VJNOig" name="getAdministrators" specification="_ugg4UGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return administrators;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugjUkGRWEe6Dsvx-VJNOig" name="setAdministrators" specification="_ugiGcGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.administrators = administrators;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uglJwGRWEe6Dsvx-VJNOig" name="getDbInfos" specification="_ugj7oGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    return dbInfos;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugm-8GRWEe6Dsvx-VJNOig" name="setDbInfos" specification="_uglw0GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.dbInfos = dbInfos;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_uf9esGRWEe6Dsvx-VJNOig" name="printEMSInformation" visibility="public" method="_uf9esWRWEe6Dsvx-VJNOig"/>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_uf-FwGRWEe6Dsvx-VJNOig" name="printDBInfo" visibility="private" method="_uf-FwWRWEe6Dsvx-VJNOig"/>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_uf_T4GRWEe6Dsvx-VJNOig" name="getInfo" visibility="public" method="_ugAiAGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_uf_68GRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugBJEGRWEe6Dsvx-VJNOig" name="setInfo" visibility="public" method="_ugCXMGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugBwIGRWEe6Dsvx-VJNOig" name="info" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugC-QGRWEe6Dsvx-VJNOig" name="getCopyRight" visibility="public" method="_ugEMYGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugDlUGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugEzcGRWEe6Dsvx-VJNOig" name="setCopyRight" visibility="public" method="_ugFagGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugEzcWRWEe6Dsvx-VJNOig" name="copyRight" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugGBkGRWEe6Dsvx-VJNOig" name="getVer" visibility="public" method="_ugHPsGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugGooGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugH2wGRWEe6Dsvx-VJNOig" name="setVer" visibility="public" method="_ugJE4GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugId0GRWEe6Dsvx-VJNOig" name="ver" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugJr8GRWEe6Dsvx-VJNOig" name="getsYear" visibility="public" method="_ugKTAGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugJr8WRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugK6EGRWEe6Dsvx-VJNOig" name="setsYear" visibility="public" method="_ugMIMGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugLhIGRWEe6Dsvx-VJNOig" name="sYear" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugMvQGRWEe6Dsvx-VJNOig" name="getsMonth" visibility="public" method="_ugNWUGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugMvQWRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugN9YGRWEe6Dsvx-VJNOig" name="setsMonth" visibility="public" method="_ugPLgGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugOkcGRWEe6Dsvx-VJNOig" name="sMonth" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugPykGRWEe6Dsvx-VJNOig" name="getsDay" visibility="public" method="_ugQZoWRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugQZoGRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugRAsGRWEe6Dsvx-VJNOig" name="setsDay" visibility="public" method="_ugSO0GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugRnwGRWEe6Dsvx-VJNOig" name="sDay" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugS14GRWEe6Dsvx-VJNOig" name="geteYear" visibility="public" method="_ugTc8GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugS14WRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugUEAGRWEe6Dsvx-VJNOig" name="seteYear" visibility="public" method="_ugVSIGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugUrEGRWEe6Dsvx-VJNOig" name="eYear" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugV5MGRWEe6Dsvx-VJNOig" name="geteMonth" visibility="public" method="_ugWgQGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugV5MWRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugXHUGRWEe6Dsvx-VJNOig" name="seteMonth" visibility="public" method="_ugYVcGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugXuYGRWEe6Dsvx-VJNOig" name="eMonth" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugY8gGRWEe6Dsvx-VJNOig" name="geteDay" visibility="public" method="_ugZjkWRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugZjkGRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugaKoGRWEe6Dsvx-VJNOig" name="seteDay" visibility="public" method="_ugbYwGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugaxsGRWEe6Dsvx-VJNOig" name="eDay" type="_ueNLMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugb_0GRWEe6Dsvx-VJNOig" name="getDevelopers" visibility="public" method="_ugd1AGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugcm4GRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugdN8GRWEe6Dsvx-VJNOig"/>
+                    <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugdN8WRWEe6Dsvx-VJNOig" value="*"/>
+                  </ownedParameter>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugecEGRWEe6Dsvx-VJNOig" name="setDevelopers" visibility="public" method="_uggRQGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugfDIGRWEe6Dsvx-VJNOig" name="developers" type="_ubToMGRWEe6Dsvx-VJNOig">
+                    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugfqMGRWEe6Dsvx-VJNOig"/>
+                    <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugfqMWRWEe6Dsvx-VJNOig" value="*"/>
+                  </ownedParameter>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugg4UGRWEe6Dsvx-VJNOig" name="getAdministrators" visibility="public" method="_ughfYWRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ughfYGRWEe6Dsvx-VJNOig" type="_ue35kGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugiGcGRWEe6Dsvx-VJNOig" name="setAdministrators" visibility="public" method="_ugjUkGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugitgGRWEe6Dsvx-VJNOig" name="administrators" type="_ue35kGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugj7oGRWEe6Dsvx-VJNOig" name="getDbInfos" visibility="public" method="_uglJwGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugkisGRWEe6Dsvx-VJNOig" type="_ue35kGRWEe6Dsvx-VJNOig" direction="return"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_uglw0GRWEe6Dsvx-VJNOig" name="setDbInfos" visibility="public" method="_ugm-8GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugmX4GRWEe6Dsvx-VJNOig" name="dbInfos" type="_ue35kGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_ugo0IGRWEe6Dsvx-VJNOig" name="PrintStudentInformationService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ugpbMGRWEe6Dsvx-VJNOig" name="allSelectService" visibility="private" type="_ufqjwGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uguTsGRWEe6Dsvx-VJNOig" name="PrintStudentInformationService" specification="_ugqpUGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.allSelectService = allSelectService;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ugvh0GRWEe6Dsvx-VJNOig" name="printStudentsInfo" specification="_ugu6wGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Map&lt;String, Student> allStudent = allSelectService.allSelect();&#xD;
+    Set&lt;String> keys = allStudent.keySet();&#xD;
+    Iterator&lt;String> iterator = keys.iterator();&#xD;
+    System.out.println(&quot;STUDENT LIST START ---------&quot;);&#xD;
+    while (iterator.hasNext()) {&#xD;
+        String key = iterator.next();&#xD;
+        Student student = allStudent.get(key);&#xD;
+        System.out.print(&quot;sNum:&quot; + student.getsNum() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;|sId:&quot; + student.getsId() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;|sPw:&quot; + student.getsPw() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;|sName:&quot; + student.getsName() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;|sAge:&quot; + student.getsAge() + &quot;\t&quot;);&#xD;
+        System.out.print(&quot;|sGender:&quot; + student.getsGender() + &quot;\t&quot;);&#xD;
+        System.out.println(&quot;|sMajor:&quot; + student.getsMajor() + &quot;\t&quot;);&#xD;
+    }&#xD;
+    System.out.println(&quot;END --------------------&quot;);&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugqpUGRWEe6Dsvx-VJNOig" name="PrintStudentInformationService" visibility="public" method="_uguTsGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ugtsoGRWEe6Dsvx-VJNOig" name="allSelectService" type="_ufqjwGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugu6wGRWEe6Dsvx-VJNOig" name="printStudentsInfo" visibility="public" method="_ugvh0GRWEe6Dsvx-VJNOig"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Class" xmi:id="_ugxXAGRWEe6Dsvx-VJNOig" name="StudentModifyService" visibility="public">
+                <ownedAttribute xmi:type="uml:Property" xmi:id="_ugylIGRWEe6Dsvx-VJNOig" name="studentDao" visibility="private" type="_ue2rcGRWEe6Dsvx-VJNOig" isUnique="false"/>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ug22kGRWEe6Dsvx-VJNOig" name="StudentModifyService" specification="_ugzMMGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    this.studentDao = studentDao;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ug5S0GRWEe6Dsvx-VJNOig" name="modify" specification="_ug4EsGRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    if (verify(student.getsNum())) {&#xD;
+        studentDao.update(student);&#xD;
+    } else {&#xD;
+        System.out.println(&quot;Student information is available.&quot;);&#xD;
+    }&#xD;
+</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ug89MGRWEe6Dsvx-VJNOig" name="verify" specification="_ug6g8GRWEe6Dsvx-VJNOig">
+                  <language>JAVA</language>
+                  <body>&#xD;
+    Student student = studentDao.select(sNum);&#xD;
+    return student != null ? true : false;&#xD;
+</body>
+                </ownedBehavior>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ugzMMGRWEe6Dsvx-VJNOig" name="StudentModifyService" visibility="public" method="_ug22kGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ug2PgGRWEe6Dsvx-VJNOig" name="studentDao" type="_ue2rcGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ug4EsGRWEe6Dsvx-VJNOig" name="modify" visibility="public" method="_ug5S0GRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ug4rwGRWEe6Dsvx-VJNOig" name="student" type="_udQwAGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+                <ownedOperation xmi:type="uml:Operation" xmi:id="_ug6g8GRWEe6Dsvx-VJNOig" name="verify" visibility="public" method="_ug89MGRWEe6Dsvx-VJNOig">
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ug7IAGRWEe6Dsvx-VJNOig" type="_ufQUEGRWEe6Dsvx-VJNOig" direction="return"/>
+                  <ownedParameter xmi:type="uml:Parameter" xmi:id="_ug8WIGRWEe6Dsvx-VJNOig" name="sNum" type="_ubToMGRWEe6Dsvx-VJNOig"/>
+                </ownedOperation>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_Bnp2YGRZEe6Dsvx-VJNOig" client="_ufT-cGRWEe6Dsvx-VJNOig" supplier="_ue2rcGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_Fc_wQGRZEe6Dsvx-VJNOig" client="_ufe9kGRWEe6Dsvx-VJNOig" supplier="_ue2rcGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_G17SEGRZEe6Dsvx-VJNOig" client="_ufHxMGRWEe6Dsvx-VJNOig" supplier="_ufBqkGRWEe6Dsvx-VJNOig _m9yGsGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_IdE2EGRZEe6Dsvx-VJNOig" client="_ufqjwGRWEe6Dsvx-VJNOig" supplier="_ufEG0GRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_J83N0GRZEe6Dsvx-VJNOig" client="_ugxXAGRWEe6Dsvx-VJNOig" supplier="_ue2rcGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_ZyvhYGRZEe6Dsvx-VJNOig" client="_ugqpUGRWEe6Dsvx-VJNOig" supplier="_m9yGsGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_U7dz8GRaEe6Dsvx-VJNOig" client="_uf0UwGRWEe6Dsvx-VJNOig" supplier="_uc91EGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_dGTucGRaEe6Dsvx-VJNOig" client="_ugo0IGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_-46tUGRaEe6Dsvx-VJNOig" client="_ufqjwGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_Obd1MGRbEe6Dsvx-VJNOig" client="_ugo0IGRWEe6Dsvx-VJNOig" supplier="_ue2rcGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_Vzqx0GRbEe6Dsvx-VJNOig" client="_ufHxMGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_YK02cGRbEe6Dsvx-VJNOig" client="_ufe9kGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_dBNWkGRbEe6Dsvx-VJNOig" client="_ugxXAGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+              <packagedElement xmi:type="uml:Dependency" xmi:id="_jYj6MGRbEe6Dsvx-VJNOig" client="_ufT-cGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+            </packagedElement>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_ug-LUGRWEe6Dsvx-VJNOig" name="utils">
+            <packagedElement xmi:type="uml:Class" xmi:id="_ug-yYGRWEe6Dsvx-VJNOig" name="InitSampleData" visibility="public">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhAAgGRWEe6Dsvx-VJNOig" name="sNums" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhAnkGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhBOoGRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhB1sGRWEe6Dsvx-VJNOig" name="sIds" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhCcwGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhCcwWRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhDD0GRWEe6Dsvx-VJNOig" name="sPws" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhDq4GRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhDq4WRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhER8GRWEe6Dsvx-VJNOig" name="sNames" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhE5AGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhE5AWRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhFgEGRWEe6Dsvx-VJNOig" name="sAges" visibility="private" type="_ueNLMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhGuMGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhGuMWRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhHVQGRWEe6Dsvx-VJNOig" name="sGenders" visibility="private" type="_ueOZUGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhH8UGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhIjYGRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_uhJKcGRWEe6Dsvx-VJNOig" name="sMajors" visibility="private" type="_ubToMGRWEe6Dsvx-VJNOig" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhJxgGRWEe6Dsvx-VJNOig"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhJxgWRWEe6Dsvx-VJNOig" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhMNwGRWEe6Dsvx-VJNOig" name="getsNums" specification="_uhKYkGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sNums;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhPREGRWEe6Dsvx-VJNOig" name="setsNums" specification="_uhM00GRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sNums = sNums;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhRGQWRWEe6Dsvx-VJNOig" name="getsIds" specification="_uhP4IGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sIds;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhUJkWRWEe6Dsvx-VJNOig" name="setsIds" specification="_uhSUYGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sIds = sIds;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhXM4GRWEe6Dsvx-VJNOig" name="getsPws" specification="_uhVXsGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sPws;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhaQMGRWEe6Dsvx-VJNOig" name="setsPws" specification="_uhYbAGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sPws = sPws;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhcscGRWEe6Dsvx-VJNOig" name="getsNames" specification="_uha3QGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sNames;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhfIsWRWEe6Dsvx-VJNOig" name="setsNames" specification="_uhdTgGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sNames = sNames;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhg94WRWEe6Dsvx-VJNOig" name="getsAges" specification="_uhfvwGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sAges;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhjaIWRWEe6Dsvx-VJNOig" name="setsAges" specification="_uhiMAGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sAges = sAges;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhl2YWRWEe6Dsvx-VJNOig" name="getsGenders" specification="_uhkoQGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sGenders;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uho5sGRWEe6Dsvx-VJNOig" name="setsGenders" specification="_uhnEgGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sGenders = sGenders;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhrV8GRWEe6Dsvx-VJNOig" name="getsMajors" specification="_uhpgwGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    return sMajors;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_uhuZQGRWEe6Dsvx-VJNOig" name="setsMajors" specification="_uhr9AGRWEe6Dsvx-VJNOig">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.sMajors = sMajors;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhKYkGRWEe6Dsvx-VJNOig" name="getsNums" visibility="public" method="_uhMNwGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhK_oGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhLmsGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhLmsWRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhM00GRWEe6Dsvx-VJNOig" name="setsNums" visibility="public" method="_uhPREGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhOC8GRWEe6Dsvx-VJNOig" name="sNums" type="_ubToMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhOC8WRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhOqAGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhP4IGRWEe6Dsvx-VJNOig" name="getsIds" visibility="public" method="_uhRGQWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhQfMGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhQfMWRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhRGQGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhSUYGRWEe6Dsvx-VJNOig" name="setsIds" visibility="public" method="_uhUJkWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhS7cGRWEe6Dsvx-VJNOig" name="sIds" type="_ubToMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhTigGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhUJkGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhVXsGRWEe6Dsvx-VJNOig" name="getsPws" visibility="public" method="_uhXM4GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhV-wGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhWl0GRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhWl0WRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhYbAGRWEe6Dsvx-VJNOig" name="setsPws" visibility="public" method="_uhaQMGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhZCEGRWEe6Dsvx-VJNOig" name="sPws" type="_ubToMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhZpIGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhZpIWRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uha3QGRWEe6Dsvx-VJNOig" name="getsNames" visibility="public" method="_uhcscGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhbeUGRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhcFYGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhcFYWRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhdTgGRWEe6Dsvx-VJNOig" name="setsNames" visibility="public" method="_uhfIsWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhd6kGRWEe6Dsvx-VJNOig" name="sNames" type="_ubToMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhehoGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhfIsGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhfvwGRWEe6Dsvx-VJNOig" name="getsAges" visibility="public" method="_uhg94WRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhgW0GRWEe6Dsvx-VJNOig" type="_ueNLMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhgW0WRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhg94GRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhiMAGRWEe6Dsvx-VJNOig" name="setsAges" visibility="public" method="_uhjaIWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhizEGRWEe6Dsvx-VJNOig" name="sAges" type="_ueNLMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhizEWRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhjaIGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhkoQGRWEe6Dsvx-VJNOig" name="getsGenders" visibility="public" method="_uhl2YWRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhkoQWRWEe6Dsvx-VJNOig" type="_ueOZUGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhlPUGRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhl2YGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhnEgGRWEe6Dsvx-VJNOig" name="setsGenders" visibility="public" method="_uho5sGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhnrkGRWEe6Dsvx-VJNOig" name="sGenders" type="_ueOZUGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhnrkWRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhoSoGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhpgwGRWEe6Dsvx-VJNOig" name="getsMajors" visibility="public" method="_uhrV8GRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhqH0GRWEe6Dsvx-VJNOig" type="_ubToMGRWEe6Dsvx-VJNOig" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhqu4GRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhqu4WRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_uhr9AGRWEe6Dsvx-VJNOig" name="setsMajors" visibility="public" method="_uhuZQGRWEe6Dsvx-VJNOig">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_uhtLIGRWEe6Dsvx-VJNOig" name="sMajors" type="_ubToMGRWEe6Dsvx-VJNOig">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uhtLIWRWEe6Dsvx-VJNOig"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uhtyMGRWEe6Dsvx-VJNOig" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+            </packagedElement>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_Gp9IEGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_udQwAGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_PlJhcGRYEe6Dsvx-VJNOig" client="_m9yGsGRWEe6Dsvx-VJNOig" supplier="_ug-yYGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_iakvUGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_ufT-cGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_jVEBoGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_ufe9kGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_m4ynEGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_ugo0IGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_qdFNMGRYEe6Dsvx-VJNOig" client="_m9yGsGRWEe6Dsvx-VJNOig" supplier="_ugxXAGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_sY6nwGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_ufHxMGRWEe6Dsvx-VJNOig"/>
+          <packagedElement xmi:type="uml:Dependency" xmi:id="_wPAvkGRYEe6Dsvx-VJNOig" client="_ubPWwGRWEe6Dsvx-VJNOig" supplier="_uf0UwGRWEe6Dsvx-VJNOig"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ubSaEGRWEe6Dsvx-VJNOig" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_ubTBIGRWEe6Dsvx-VJNOig" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_ubTBIWRWEe6Dsvx-VJNOig" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_ubToMGRWEe6Dsvx-VJNOig" name="String"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_ue3SgGRWEe6Dsvx-VJNOig" name="util">
+          <packagedElement xmi:type="uml:Class" xmi:id="_ue35kGRWEe6Dsvx-VJNOig" name="Map"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ueL9EGRWEe6Dsvx-VJNOig" name="importedTypes">
+      <packagedElement xmi:type="uml:Package" xmi:id="_ueMkIGRWEe6Dsvx-VJNOig" name="primitivetype">
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ueNLMGRWEe6Dsvx-VJNOig" name="Integer"/>
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ueOZUGRWEe6Dsvx-VJNOig" name="Char"/>
+        <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ufQUEGRWEe6Dsvx-VJNOig" name="Boolean"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uaFgMGRWEe6Dsvx-VJNOig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uaPRMGRWEe6Dsvx-VJNOig" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uaizMGRWEe6Dsvx-VJNOig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uajaQGRWEe6Dsvx-VJNOig" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_uao50GRWEe6Dsvx-VJNOig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_uapg4GRWEe6Dsvx-VJNOig" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_uc0rIGRWEe6Dsvx-VJNOig" name="java.lang.String" base_Classifier="_ubToMGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ueTR0GRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ueQ1kGRWEe6Dsvx-VJNOig"/>
+  <PapyrusJava:External xmi:id="_ue5uwGRWEe6Dsvx-VJNOig" name="java.util.Map" base_Classifier="_ue35kGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ufK0gGRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ufI_UGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ufXBwGRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ufVMkGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ufiA4GRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ufgLsGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ufuOIGRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ufsY8GRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ugsegGRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ugqpUGRWEe6Dsvx-VJNOig"/>
+  <standard:Create xmi:id="_ug1BYGRWEe6Dsvx-VJNOig" base_BehavioralFeature="_ugzMMGRWEe6Dsvx-VJNOig"/>
+</xmi:XMI>
